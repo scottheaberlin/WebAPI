@@ -25,7 +25,7 @@ import org.springframework.util.Assert;
 /**
  *
  */
-public class CohortAnalysisServiceTest extends WebApiTest {
+public class CohortAnalysisServiceIT extends WebApiIT {
     
     @Value("${cohortanalysis.endpoint.job}")
     private String endpointCohortAnalysis;
