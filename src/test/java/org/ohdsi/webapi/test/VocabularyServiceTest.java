@@ -9,7 +9,7 @@ import org.springframework.http.ResponseEntity;
 /**
  *
  */
-public class VocabularyServiceIT extends WebApiIT {
+public class VocabularyServiceTest extends WebApiTest {
     
     @Value("${vocabularyservice.endpoint.vocabularies}")
     private String endpointVocabularies;

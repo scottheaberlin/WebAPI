@@ -25,7 +25,7 @@ import org.ohdsi.webapi.vocabulary.ConceptSetExpressionQueryBuilder;
  *
  * @author cknoll1
  */
-public class ConceptSetExpressionTests {
+public class ConceptSetExpressionTest {
 
   private static ConceptSetExpression getTestExpression() {
     ConceptSetExpression exp = new ConceptSetExpression();

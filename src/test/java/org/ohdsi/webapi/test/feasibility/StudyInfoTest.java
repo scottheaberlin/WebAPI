@@ -15,7 +15,10 @@
  */
 package org.ohdsi.webapi.test.feasibility;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
+import java.util.logging.Logger;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import org.junit.Test;
@@ -59,11 +62,23 @@ public class StudyInfoTest {
   @PersistenceContext
   protected EntityManager entityManager;
 
+	final Logger logger = Logger.getLogger(StudyInfoTest.class.getName());
+	
   @Test
   @Transactional(transactionManager="transactionManager")
   public void testStudyCRUD() {
     
-    Source source = sourceRepository.findOne(1);
+    List<Source> sources = new ArrayList<>();
+		
+		sourceRepository.findAll().forEach(sources::add);
+		
+		if (sources.isEmpty()) { 
+			// can't run the test if a source does not exist
+			logger.warning("StudyInfoTest: No sources defined. Skipping test.");
+			return;
+		} 
+		
+		Source source = sources.get(0);
     FeasibilityStudy newStudy = new FeasibilityStudy();
     newStudy.setName("Test Info Study");
     newStudy = this.studyRepository.save(newStudy);

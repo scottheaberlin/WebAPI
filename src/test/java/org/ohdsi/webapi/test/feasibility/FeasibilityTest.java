@@ -41,7 +41,7 @@ import org.springframework.transaction.annotation.Transactional;
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = WebApi.class)
 @Rollback
-public class FeasibilityTests {
+public class FeasibilityTest {
   
   @Autowired
   private CohortDefinitionRepository cohortDefinitionRepository;

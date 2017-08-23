@@ -23,7 +23,7 @@ import org.springframework.boot.test.web.client.TestRestTemplate;
 @SpringBootTest(classes = WebApi.class)
 @ActiveProfiles("test")
 @Ignore//do not run this test
-public abstract class WebApiIT {
+public abstract class WebApiTest {
     
     protected final Log log = LogFactory.getLog(getClass());
     

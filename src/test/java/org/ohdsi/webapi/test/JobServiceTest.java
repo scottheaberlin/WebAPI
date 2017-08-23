@@ -19,7 +19,7 @@ import org.springframework.util.Assert;
 /**
  *
  */
-public class JobServiceIT extends WebApiIT {
+public class JobServiceTest extends WebApiTest {
     
     @Value("${exampleservice.endpoint}")
     private String endpointExample;
@@ -62,12 +62,11 @@ public class JobServiceIT extends WebApiIT {
                     @Override
                     public ResponseEntity<JobExecutionResource> doWithRetry(final RetryContext context) {
                         // Do stuff that might fail, e.g. webservice operation
-                        final ResponseEntity<JobExecutionResource> getEntityExecution = getRestTemplate().getForEntity(
-                            JobServiceIT.this.endpointJobExecution, JobExecutionResource.class, params);
+                        final ResponseEntity<JobExecutionResource> getEntityExecution = getRestTemplate().getForEntity(JobServiceTest.this.endpointJobExecution, JobExecutionResource.class, params);
                         final JobExecutionResource getExecution = getEntityExecution.getBody();
                         assertJobExecution(getExecution);
                         if (!"COMPLETED".equals(getExecution.getStatus())) {
-                            JobServiceIT.this.log.debug("Incomplete job, trying again...");
+                            JobServiceTest.this.log.debug("Incomplete job, trying again...");
                             throw new IllegalStateException("Incomplete job");
                         }
                         return getEntityExecution;
