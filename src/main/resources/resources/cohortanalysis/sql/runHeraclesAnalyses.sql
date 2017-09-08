@@ -6522,7 +6522,7 @@ INSERT INTO @results_schema.HERACLES_results (cohort_definition_id,
 			as total_per_day
 			from 
 			(
-				select all_observ.value_as_string,
+			  select distinct all_observ.value_as_string,
 				CAST(YEAR(all_observ.observation_date) as varchar(4)) + '-' + RIGHT('0' + RTRIM(MONTH(all_observ.observation_date)), 2) + '-' + RIGHT('0' + RTRIM(day(all_observ.observation_date)), 2) as obs_date,
 				--observation_date as obs_date, 
 				COUNT_BIG(*) 
