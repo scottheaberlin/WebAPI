@@ -6570,11 +6570,7 @@ INSERT INTO @results_schema.HERACLES_results (cohort_definition_id,
                  obs_date,
                  value_as_string,
                  (1.0 * cnt) / (1.0 * total_per_day) prob,
-                   (-1.0)
-                 * (  ( (1.0 * cnt) / (1.0 * total_per_day))
-                    * LOG (2, (1.0 * cnt) / (1.0 * total_per_day)))
-                    probTimesLog,
-                 --  (-1.0) * (((1.0 * cnt) / (1.0 * total_per_day)) * (log((1.0 * cnt) / (1.0 * total_per_day))/log(2))) probTimesLog,
+                 (-1.0) * (((1.0 * cnt) / (1.0 * total_per_day)) * (log((1.0 * cnt) / (1.0 * total_per_day))/log(2))) probTimesLog,
                  cnt,
                  total_per_day
             FROM (SELECT care_site_id,
@@ -6589,18 +6585,12 @@ INSERT INTO @results_schema.HERACLES_results (cohort_definition_id,
                                  all_observ.site_source_value
                                     AS site_source_value,
                                  all_observ.value_as_string AS value_as_string,
-                                 --CAST(YEAR(all_observ.observation_date) as varchar(4)) + '-' + RIGHT('0' + RTRIM(MONTH(all_observ.observation_date)), 2) + '-' + RIGHT('0' + RTRIM(day(all_observ.observation_date)), 2) as obs_date,
-                                 observation_date         AS obs_date,
-                                 --COUNT_BIG(*)
-                                 COUNT (
-                                    *)
+                                 CAST(YEAR(all_observ.observation_date) as varchar(4)) + '-' + RIGHT('0' + RTRIM(MONTH(all_observ.observation_date)), 2) + '-' + RIGHT('0' + RTRIM(day(all_observ.observation_date)), 2) as obs_date,
+                                 COUNT_BIG(*)
                                  OVER (
                                     PARTITION BY all_observ.care_site_id,
                                                  all_observ.value_as_string,
-                                                 --    DATEFROMPARTS(YEAR(all_observ.observation_date),MONTH(all_observ.observation_date),DAY(all_observ.observation_date))
-                                                 --    CAST(YEAR(all_observ.observation_date) as varchar(4)) + '-' + RIGHT('0' + RTRIM(MONTH(all_observ.observation_date)), 2) + '-' + RIGHT('0' + RTRIM(day(all_observ.observation_date)), 2)
-                                                 TRUNC (
-                                                    all_observ.observation_date))
+                                                 CAST(YEAR(all_observ.observation_date) as varchar(4)) + '-' + RIGHT('0' + RTRIM(MONTH(all_observ.observation_date)), 2) + '-' + RIGHT('0' + RTRIM(day(all_observ.observation_date)), 2))
                                     AS cnt
                             FROM (SELECT CASE
                                             WHEN caresite.CARE_SITE_ID IS NULL
